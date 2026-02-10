@@ -1,0 +1,15 @@
+/* Estilo para el botón violeta rectangular */
+.violet-button button {
+    background-color: #6a6eff !important;
+    color: white !important;
+    border-radius: 2px !important; /* Rectangular como la foto */
+    border: 1px solid #5a5ed1 !important;
+    font-size: 12px !important;
+    height: 30px !important;
+    line-height: 1 !important;
+}
+
+.violet-button button:hover {
+    background-color: #585ce6 !important;
+    color: white !important;
+}
