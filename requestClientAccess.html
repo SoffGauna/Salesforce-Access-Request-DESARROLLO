@@ -1,0 +1,88 @@
+<template>
+    <lightning-card title="Request Client Access" icon-name="standard:account">
+        <div class="slds-p-around_medium">
+            
+            <template if:false={showForm}>
+                <div class="slds-grid slds-gutters slds-m-bottom_small">
+                    <div class="slds-col slds-size_1-of-4">
+                        <lightning-combobox label="Type" options={recordTypeOptions} onchange={handleTypeChange} placeholder="Select..."></lightning-combobox>
+                    </div>
+                    <div class="slds-col slds-size_3-of-4">
+                        <lightning-input type="search" label="Search Accounts" onchange={handleSearch} placeholder="Search by name..."></lightning-input>
+                    </div>
+                </div>
+
+                <div class="slds-border_top slds-border_bottom slds-border_left slds-border_right">
+                    <lightning-datatable 
+                        key-field="Id" 
+                        data={accounts.data} 
+                        columns={columns} 
+                        hide-checkbox-column
+                        onrowaction={handleRowAction}>
+                    </lightning-datatable>
+                </div>
+            </template>
+
+            <template if:true={showForm}>
+                <h1 class="slds-text-heading_large slds-m-bottom_medium"><b>Access Request</b></h1>
+
+                <div class="slds-box slds-m-bottom_medium slds-theme_shade">
+                    <h2 class="slds-text-heading_small slds-m-bottom_small"><b>Account</b></h2>
+                    <div class="slds-grid slds-wrap slds-text-body_small">
+                        <div class="slds-col slds-size_1-of-2 slds-p-vertical_xx-small">
+                            <span class="slds-text-color_weak">Account Name:</span> {selectedAccount.Name}
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-vertical_xx-small">
+                            <span class="slds-text-color_weak">Client Code:</span> {selectedAccount.AccountNumber}
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-vertical_xx-small">
+                            <span class="slds-text-color_weak">Region:</span> {selectedAccount.Region}
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-vertical_xx-small">
+                            <span class="slds-text-color_weak">Practice:</span> {selectedAccount.PracticeName}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-box slds-m-top_medium">
+                    <h2 class="slds-text-heading_small slds-m-bottom_small"><b>Request Details</b></h2>
+                    
+                    <div class="slds-grid slds-wrap slds-gutters">
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="slds-p-around_x-small">
+                                <lightning-input type="search" label="Requested By" placeholder="Search User..." value="Current User"></lightning-input>
+                            </div>
+                            <div class="slds-p-around_x-small">
+                                <lightning-input type="search" label="Requested For" placeholder="Search User..." value="Current User"></lightning-input>
+                            </div>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="slds-p-around_x-small">
+                                <lightning-input type="date" label="Start Date" required onchange={handleInputChange}></lightning-input>
+                            </div>
+                            <div class="slds-p-around_x-small">
+                                <p class="slds-form-element__label slds-m-bottom_none">Timeframe</p>
+                                <lightning-input type="checkbox" label="Indefinite" onchange={handleInputChange}></lightning-input>
+                            </div>
+                            <div class="slds-p-around_x-small">
+                                <lightning-input type="date" label="End Date" disabled={isIndefinite} onchange={handleInputChange}></lightning-input>
+                            </div>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-p-around_x-small">
+                            <lightning-textarea label="Notes" placeholder="Input text" onchange={handleInputChange}></lightning-textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_medium slds-text-align_right">
+                    <lightning-button label="Cancel" onclick={handleCancel} class="slds-m-right_x-small"></lightning-button>
+                    <lightning-button label="Save" variant="neutral" onclick={handleSave} class="slds-m-right_x-small"></lightning-button>
+                    <lightning-button label="Submit Request" variant="brand" onclick={handleSubmit} class="violet-button"></lightning-button>
+                </div>
+            </template>
+
+        </div>
+    </lightning-card>
+</template>
